@@ -115,17 +115,20 @@
             
                 points = config.get("settings").get("points")
                 work = config.get("works").get(lab_num)
+
                 if points and work:
                     deadline = work.get("deadline")
                     if work.get("kernel"):
                         language = work.get("kernel")
                     else:
                         language = config.get("default_kernel")
+
                     print(f'::set-output name=points::'+str(points))
                     print(f'::set-output name=deadline::'+deadline)
                     print(f'::set-output name=language::'+str(language))
                 else:
                     notifier.critical("Нет работы в конфиге")    
+
             except FileNotFoundError:
                 notifier.critical("No config in repository")
             notifier.set_env_and_close_runner()
@@ -318,9 +321,9 @@
                     notifier.error('Название работы пустое')
             def check_author(text):
                 if not re.match(
-                    r'^(В|в)ыполнила?\s+студент(ка)?\s+(гр\.|группы)\s+\d{4}\s[А-Я|A-Z][а-я|a-z]+\s[А-Я|A-Z][а-я|a-z]+.?\s+(В|в)ариант\s+?\d{1,2}\.?(\\n)?',
+                    r'^(В|в)ыполнила?\s+студент(ка)?\s+(гр\.|группы)\s+\d{4}\s[А-Я|A-Z][а-я|a-z]+\s[А-Я|A-Z][а-я|a-z]+,?\s+(В|в)ариант\s+?\d{1,2}\.?(\\n)?',
                    text):
-                    notifier.error("Строка 2 - Некорректное название работы, не соотвествует шаблону <Выполнил студент гр. 2022 Иванов Иван. Вариант N>")
+                    notifier.error("Строка 2 - Некорректное название работы, не соотвествует шаблону <Выполнил студент гр. 2022 Иванов Иван, вариант N>")
             
             def changePoints(markdown):
             
@@ -336,8 +339,8 @@
                         if re.search(re_key, row):
                             dict_substrings[key] = True
             
-                check_title(markdown[0])
-                check_author(markdown[1])
+                #check_title(markdown[0])
+                #check_author(markdown[1])
             
                 if not all(dict_substrings.values()):
                     notifier.error('**Отсутствуют обязательные пункты:**')
