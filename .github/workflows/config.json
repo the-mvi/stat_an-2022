@@ -17,11 +17,11 @@
       "kernel":["R", "python"]
     },
     "task2": {
-      "deadline":"2022-11-28",
+      "deadline":"2023-11-01",
       "kernel":["R", "python"]
     },
     "task3": {
-      "deadline":"2022-12-12",
+      "deadline":"2023-12-01",
       "kernel":["R", "python"]
     }
   }
